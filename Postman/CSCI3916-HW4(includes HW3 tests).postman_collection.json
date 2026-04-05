@@ -1,0 +1,594 @@
+{
+  "info": {
+    "_postman_id": "0c7e8ec3-7f13-4cc0-ac87-3c521ac9e4dd",
+    "name": "CSCI3916-HW4(includes HW3 tests)",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "34779736",
+    "_collection_link": "https://go.postman.co/collection/34779736-0c7e8ec3-7f13-4cc0-ac87-3c521ac9e4dd?source=collection_link"
+  },
+  "item": [
+    {
+      "name": "signup",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              ""
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        },
+        {
+          "listen": "prerequest",
+          "script": {
+            "exec": [
+              "const randomString = Math.random().toString(36).substring(2, 10);\r",
+              "const user = \"user_\" + randomString;\r",
+              "const pass = \"pass_\" + randomString;\r",
+              "\r",
+              "pm.environment.set(\"randomUser\", user);\r",
+              "pm.environment.set(\"randomPass\", pass);"
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        }
+      ],
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{token}}",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \"name\": \"Random Tester\",\r\n    \"username\": \"{{randomUser}}\",\r\n    \"password\": \"{{randomPass}}\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "https://csci3916-hw3-f59k.onrender.com/api/auth/signup",
+          "protocol": "https",
+          "host": [
+            "csci3916-hw3-f59k",
+            "onrender",
+            "com"
+          ],
+          "path": [
+            "api",
+            "auth",
+            "signup"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "signin",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "const responseJson = pm.response.json();\r",
+              "\r",
+              "if (responseJson.token) {\r",
+              "    // This saves the token \r",
+              "    pm.environment.set(\"jwt_token\", responseJson.token);\r",
+              "}"
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        },
+        {
+          "listen": "prerequest",
+          "script": {
+            "exec": [
+              ""
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        }
+      ],
+      "request": {
+        "auth": {
+          "type": "noauth"
+        },
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \"username\": \"{{randomUser}}\",\r\n    \"password\": \"{{randomPass}}\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "https://csci3916-hw3-f59k.onrender.com/api/auth/signin",
+          "protocol": "https",
+          "host": [
+            "csci3916-hw3-f59k",
+            "onrender",
+            "com"
+          ],
+          "path": [
+            "api",
+            "auth",
+            "signin"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "getMovieByTitle",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "const responseJson = pm.response.json();\r",
+              "\r",
+              ""
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        }
+      ],
+      "protocolProfileBehavior": {
+        "disableBodyPruning": true
+      },
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "{{jwt_token}}",
+            "type": "text"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "https://csci3916-hw3-f59k.onrender.com/api/movies/Interstellar",
+          "protocol": "https",
+          "host": [
+            "csci3916-hw3-f59k",
+            "onrender",
+            "com"
+          ],
+          "path": [
+            "api",
+            "movies",
+            "Interstellar"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "updateMovie",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "const responseJson = pm.response.json();\r",
+              "\r",
+              ""
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        }
+      ],
+      "request": {
+        "method": "PUT",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "{{jwt_token}}",
+            "type": "text"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\"genre\": \"Adventure\"}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "https://csci3916-hw3-f59k.onrender.com/api/movies/Interstellar",
+          "protocol": "https",
+          "host": [
+            "csci3916-hw3-f59k",
+            "onrender",
+            "com"
+          ],
+          "path": [
+            "api",
+            "movies",
+            "Interstellar"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "updateMovie(movie missing info)",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "const responseJson = pm.response.json();"
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        }
+      ],
+      "request": {
+        "method": "PUT",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "{{jwt_token}}",
+            "type": "text"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\"genre\": \"Adventure\"}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "https://csci3916-hw3-f59k.onrender.com/api/movies/",
+          "protocol": "https",
+          "host": [
+            "csci3916-hw3-f59k",
+            "onrender",
+            "com"
+          ],
+          "path": [
+            "api",
+            "movies",
+            ""
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "deleteMovie",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "const responseJson = pm.response.json();\r",
+              "\r",
+              ""
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        }
+      ],
+      "request": {
+        "method": "DELETE",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "{{jwt_token}}",
+            "type": "text"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "https://csci3916-hw3-f59k.onrender.com/api/movies/Interstellar",
+          "protocol": "https",
+          "host": [
+            "csci3916-hw3-f59k",
+            "onrender",
+            "com"
+          ],
+          "path": [
+            "api",
+            "movies",
+            "Interstellar"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "FAIL - User already exists",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "{{jwt_token}}",
+            "type": "text",
+            "disabled": true
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \"name\": \"TestUser\",\r\n    \"username\": \"Tester\",\r\n    \"password\": \"Tester\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "https://csci3916-hw3-f59k.onrender.com/api/auth/signup",
+          "protocol": "https",
+          "host": [
+            "csci3916-hw3-f59k",
+            "onrender",
+            "com"
+          ],
+          "path": [
+            "api",
+            "auth",
+            "signup"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "FAIL - Save movie missing info",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "const responseJson = pm.response.json();"
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "{{jwt_token}}",
+            "type": "text"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n  \r\n    \"releaseDate\": 2008,\r\n    \"genre\": \"Action\",\r\n    \"actors\": [\r\n        { \"actorName\": \"Christian Bale\", \"characterName\": \"Bruce Wayne\" },\r\n        { \"actorName\": \"Heath Ledger\", \"characterName\": \"The Joker\" },\r\n        { \"actorName\": \"Aaron Eckhart\", \"characterName\": \"Harvey Dent\" }\r\n    ] // Title missing\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "https://csci3916-hw3-f59k.onrender.com/api/movies",
+          "protocol": "https",
+          "host": [
+            "csci3916-hw3-f59k",
+            "onrender",
+            "com"
+          ],
+          "path": [
+            "api",
+            "movies"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "FAIL - Save movie, less than 3 actor",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "const responseJson = pm.response.json();"
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "{{jwt_token}}",
+            "type": "text"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \"title\": \"Epic Movie\",\r\n    \"year\": \"2026\",\r\n    \"genre\": \"Drama\",\r\n    \"actors\": {\r\n        \"actorName\": \"amka\",\r\n        \"characterName\": \"bob\"\r\n        }\r\n    \r\n    // 2 actors missing\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "https://csci3916-hw3-f59k.onrender.com/api/movies",
+          "protocol": "https",
+          "host": [
+            "csci3916-hw3-f59k",
+            "onrender",
+            "com"
+          ],
+          "path": [
+            "api",
+            "movies"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "post REVIEW",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "{{jwt_token}}",
+            "type": "text"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n\"movieId\": \"69b4e633d9d00354a39e9191\",\r\n\"rating\": 3.4,\r\n\"review\": \"Its alright\"}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "https://csci3916-hw3-f59k.onrender.com/api/Reviews",
+          "protocol": "https",
+          "host": [
+            "csci3916-hw3-f59k",
+            "onrender",
+            "com"
+          ],
+          "path": [
+            "api",
+            "Reviews"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Aggregate test",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "{{jwt_token}}",
+            "type": "text"
+          }
+        ],
+        "url": {
+          "raw": "https://csci3916-hw3-f59k.onrender.com/api/movies?reviews=true",
+          "protocol": "https",
+          "host": [
+            "csci3916-hw3-f59k",
+            "onrender",
+            "com"
+          ],
+          "path": [
+            "api",
+            "movies"
+          ],
+          "query": [
+            {
+              "key": "reviews",
+              "value": "true"
+            }
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "FAIL - Saving a review",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "{{jwt_token}}",
+            "type": "text"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n\"movieId\": \"69d2bbed29671915dd31f922\",\r\n\"rating\": 3.4,\r\n\"review\": \"Its alright\"}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "https://csci3916-hw3-f59k.onrender.com/api/Reviews",
+          "protocol": "https",
+          "host": [
+            "csci3916-hw3-f59k",
+            "onrender",
+            "com"
+          ],
+          "path": [
+            "api",
+            "Reviews"
+          ]
+        }
+      },
+      "response": []
+    }
+  ]
+}

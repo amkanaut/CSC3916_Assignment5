@@ -498,7 +498,7 @@
         ],
         "body": {
           "mode": "raw",
-          "raw": "{\r\n\"movieId\": \"69b4e633d9d00354a39e9191\",\r\n\"rating\": 3.4,\r\n\"review\": \"Its alright\"}",
+          "raw": "{\r\n\"movieId\": \"69b4e6e1d9d00354a39e9195\",\r\n\"rating\": 5,\r\n\"review\": \"Critics consensus: Gattaca occasionally struggles with its unwieldy source material, but those issues are largely overshadowed by the scope and ambition of this visually thrilling adaptation.\"}",
           "options": {
             "raw": {
               "language": "json"
@@ -523,6 +523,9 @@
     },
     {
       "name": "Aggregate test",
+      "protocolProfileBehavior": {
+        "disableBodyPruning": true
+      },
       "request": {
         "method": "GET",
         "header": [
@@ -532,8 +535,17 @@
             "type": "text"
           }
         ],
+        "body": {
+          "mode": "raw",
+          "raw": "",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
         "url": {
-          "raw": "https://csci3916-hw3-f59k.onrender.com/api/movies?reviews=true",
+          "raw": "https://csci3916-hw3-f59k.onrender.com/api/movies/Gattaca?reviews=true",
           "protocol": "https",
           "host": [
             "csci3916-hw3-f59k",
@@ -542,7 +554,8 @@
           ],
           "path": [
             "api",
-            "movies"
+            "movies",
+            "Gattaca"
           ],
           "query": [
             {

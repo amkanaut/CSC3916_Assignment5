@@ -22,7 +22,7 @@ const postReviews = async (req, res) => {
 
 
         const newReview = new Review({
-            movieId: req.body.movieId,
+            movieId: new mongoose.Types.ObjectId(req.body.movieId), // Change for resubmission
             username: req.user.username,
             review: req.body.review,
             rating: req.body.rating

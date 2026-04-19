@@ -28,7 +28,7 @@ const getMovies = async (req, res) => {
                 {
                     // [x] Calcualte average rating
                     $addFields: {
-                        avgRating: { $avg: '$reviews.rating'}
+                        avgRating: { $avg: '$reviews.rating' }
                     }
                 },
                 {

@@ -47,7 +47,7 @@ const getMovies = async (req, res) => {
         
     } catch (error) {
         return res.status(500).json({ 
-            message: 'Failed to fetch movies', 
+            message: 'Version 2-0 Aggregation Running', 
             details: error.message 
         });
     }

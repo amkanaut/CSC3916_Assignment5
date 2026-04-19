@@ -25,6 +25,10 @@ const MovieSchema = new mongoose.Schema({
       },
       message: "Movie must have at least 3 actors"
     }
+  },
+  imageUrl: {
+    type: String,
+    required: false
   }
 });
 

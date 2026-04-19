@@ -10,15 +10,7 @@ const Movie = require('../models/Movies');
 
 const getMovies = async (req, res) => {
 
-    // const pipeline = [
-    //     {
-    //         $match: {
-    //             title: "Interstellar"
-    //         }
-    //     }
-    // ];
-    // const cursor = collection.aggregate(pipeline);
-    // return cursor;
+
     try {
         // [x] Check if the user specifically asked for reviews in the URL query
         if (req.query.reviews === 'true') {
@@ -32,6 +24,16 @@ const getMovies = async (req, res) => {
                         foreignField: "movieId", // The field in the Review document that points back to the movie
                         as: "reviews"            // What to name the newly attached array in the JSON response
                     }
+                },
+                {
+                    // [x] Calcualte average rating
+                    $addFields: {
+                        avgRating: { $avg: '$reviews.rating'}
+                    }
+                },
+                {
+                    // [x] Sort the average rating in descending order
+                    $sort: { avgRating: -1}
                 }
             ]);
             
@@ -88,6 +90,12 @@ const getMovieByTitle = async (req, res) => {
                         localField: "_id",       // The ID of this movie
                         foreignField: "movieId", // The field in the review pointing to this movie
                         as: "reviews"            // Name of the appended array
+                    }
+                },
+                {
+                    // [x] Calculate averate rating
+                    $addFields: {
+                        avgRating: { $avg: '$reviews.rating' }
                     }
                 }
             ]);

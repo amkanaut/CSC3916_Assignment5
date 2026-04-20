@@ -29,7 +29,7 @@ const postReviews = async (req, res) => {
             rating: req.body.rating
     });
         await newReview.save();
-        res.status(201).json({ message: 'Review created!' });
+        
 
         // Analytics EC
         await trackMovieEvent(
@@ -37,6 +37,8 @@ const postReviews = async (req, res) => {
             'post .reviews',
             'API request for movie review'
         );
+
+        res.status(201).json({ message: 'Review created!' });
 
     } catch (error) {
         res.status(400).json({ 

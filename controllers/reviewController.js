@@ -2,6 +2,7 @@ const { MongoGridFSChunkError } = require('mongodb');
 const Review = require('../models/Reviews');
 const Movie = require('../models/Movies');
 const trackMovieEvent = require('../middleware/analytics')
+const mongoose = require('mongoose');
 
 // @desc Created new controller for Review methods
 // @route POST api/reviews

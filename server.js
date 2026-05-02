@@ -24,15 +24,23 @@ connectDB();
 console.log("My Mongo URI is:", process.env.MONGO_URI);
 
 // Middleware
-app.use(cors());
+app.use(cors({
+    origin: '*', // Adjust this to your React app's URL for better security
+    methods: ['GET', 'POST', 'PUT', 'DELETE'],
+    allowedHeaders: ['Content-Type', 'Authorization']
+}));
 app.use(passport.initialize()); 
-app.use(express.json()); // Removed bodyParser as I have learned its not required with new version of Express
+app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
 // Mount Routes
-app.use('/api/movies', movieRoutes); // Movie CRUD file
-app.use('/api/auth', authRoutes); //  handles signup and sign
-app.use('/api/reviews', reviewRoutes); // Handles review CRUD
+const { signup, signin } = require('./controllers/authController');
+app.post('/signup', signup);
+app.post('/signin', signin);
+
+app.use('/api/movies', movieRoutes); 
+app.use('/api/auth', authRoutes); 
+app.use('/api/reviews', reviewRoutes);
 
 // Code that starts server
 const PORT = process.env.PORT || 8080; // Define PORT before using it

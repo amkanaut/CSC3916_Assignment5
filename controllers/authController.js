@@ -45,15 +45,15 @@ const signin = async (req, res) => {
             return res.status(401).json({ success: false, msg: 'Authentication failed. User not found.' });
         }
 
-        const isMatch = await user.comparePassword(req.body.password);
-
-        if (isMatch) {
-            const userToken = { id: user._id, username: user.username };
-            const token = jwt.sign(userToken, process.env.SECRET_KEY, { expiresIn: '1h' });
-            res.json({ success: true, token: 'JWT ' + token });
-        } else {
-            res.status(401).json({ success: false, msg: 'Authentication failed. Incorrect password.' });
-        }
+        user.comparePassword(req.body.password, (err, isMatch) => {
+            if (isMatch && !err) {
+                const userToken = { id: user._id, username: user.username };
+                const token = jwt.sign(userToken, process.env.SECRET_KEY, { expiresIn: '1h' });
+                res.json({ success: true, token: 'JWT ' + token });
+            } else {
+                res.status(401).json({ success: false, msg: 'Authentication failed. Incorrect password.' });
+            }
+        });
     } catch (err) {
         console.error("SIGNIN CRASH ERROR:", err);
         res.status(500).json({ 

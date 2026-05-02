@@ -65,19 +65,19 @@ describe('Test Movie Routes', () => {
     describe('Movie Operations', () => {
         it('should add a new movie', async () => {
             const res = await chai.request(server)
-                .post('/movies')
+                .post('/api/movies')
                 .set('Authorization', token)
                 .send(testData.movie);
                 
             res.should.have.status(201);
             res.body.should.be.an('object');
-            res.body.should.have.property('movie');
-            res.body.movie.should.have.property('title', testData.movie.title);
+            // res.body.should.have.property('movie'); // The controller returns the saved movie directly
+            res.body.should.have.property('title', testData.movie.title);
         });
 
         it('should retrieve all movies', async () => {
             const res = await chai.request(server)
-                .get('/movies')
+                .get('/api/movies')
                 .set('Authorization', token);
                 
             res.should.have.status(200);

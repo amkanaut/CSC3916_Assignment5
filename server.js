@@ -23,12 +23,6 @@ connectDB();
 
 console.log("My Mongo URI is:", process.env.MONGO_URI);
 
-mongoose.connect(process.env.MONGO_URI)
-  .then(() => console.log('✅ Successfully connected to MongoDB!'))
-  .catch((err) => {
-      console.error('❌ Could not connect to MongoDB. Error:', err);
-  });
-
 // Middleware
 app.use(cors());
 app.use(passport.initialize()); 

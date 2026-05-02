@@ -1,7 +1,7 @@
 const axios = require('axios');
 
-const GA_ID = process.env.GA_MEASUREMENT_ID;
-const GA_SECRET = process.env.GA_API_SECRET;
+const GA_MEASUREMENT_ID = process.env.GA_MEASUREMENT_ID;
+const GA_API_SECRET = process.env.GA_API_SECRET;
 
 const trackMovieEvent = async (movie, action, label) => {
     const url = `https://www.google-analytics.com/mp/collect?measurement_id=${GA_MEASUREMENT_ID}&api_secret=${GA_API_SECRET}`;
@@ -13,8 +13,6 @@ const trackMovieEvent = async (movie, action, label) => {
             params: {
                 movie_name: movie.title,
                 requested: 1,
-
-
                 event_category: movie.genre,
                 event_action: action,
                 event_label: label,
@@ -24,7 +22,7 @@ const trackMovieEvent = async (movie, action, label) => {
     };
 
     try {
-        await axios.post(url, payload);
+        await axios.post(url, eventData);
         console.log(`GA4: Tracked ${action} for ${movie.title}`);
     } catch (err) {
         console.error("GA4 Tracking Failed:", err.message);

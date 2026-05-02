@@ -1,7 +1,6 @@
-const { MongoGridFSChunkError } = require('mongodb');
 const Review = require('../models/Reviews');
 const Movie = require('../models/Movies');
-const trackMovieEvent = require('../middleware/analytics')
+const trackMovieEvent = require('../middleware/analytics');
 const mongoose = require('mongoose');
 
 // @desc Created new controller for Review methods
@@ -20,16 +19,14 @@ const postReviews = async (req, res) => {
             });
         }
 
-
-
         const newReview = new Review({
-            movieId: new mongoose.Types.ObjectId(req.body.movieId), // Change for resubmission
+            movieId: new mongoose.Types.ObjectId(req.body.movieId),
             username: req.user.username,
             review: req.body.review,
             rating: req.body.rating
-    });
-        await newReview.save();
+        });
         
+        await newReview.save();
 
         // Analytics EC
         await trackMovieEvent(

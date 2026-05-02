@@ -33,6 +33,19 @@ app.use(passport.initialize());
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
+// Error handling for malformed JSON
+app.use((err, req, res, next) => {
+    if (err instanceof SyntaxError && err.status === 400 && 'body' in err) {
+        console.error('Bad JSON:', err.message);
+        return res.status(400).json({ 
+            success: false, 
+            message: 'Malformed JSON in request body',
+            details: err.message
+        });
+    }
+    next();
+});
+
 // Mount Routes
 const { signup, signin } = require('./controllers/authController');
 app.post('/signup', signup);
